@@ -26,20 +26,30 @@ fn main() {
 
 fn generate_workout(intensity: u32, random_number: u32) {
 
+    // Code refactored to call the function simula.. only once at the begining here
+    // expnesive_.. value is used in the if loop at three locations
+    // it is the same value so we can make the code faster by calling only once
+    // but we end up calling simu.. function even when it is not needed 
+    // that is when the logic is such that intensity >= 25 and rando.. = 3
+    // closures can solve this problem of only calling this function once and only
+    // when needed. That will be implemented in the next git commit
+    let expensive_result = simulated_expensive_calculation(intensity);
+    
+    
     // Logic to check various conditions to provide user a workout plan based
     // on user feedback
 
     if intensity < 25 {
         println!("Today, do {} pushups!", 
-            simulated_expensive_calculation(intensity));
+            expensive_result);
         println!("Next, do {} situps", 
-            simulated_expensive_calculation(intensity));
+            expensive_result);
     } else {
         if random_number == 3 {
             println!("Take a break today! Remember to stay hydrated!");
         } else {
             println!("Today, run for {} minutes", 
-                    simulated_expensive_calculation(intensity));
+                    expensive_result);
         }
     }
 }
